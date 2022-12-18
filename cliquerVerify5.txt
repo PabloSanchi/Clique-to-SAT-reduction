@@ -1,0 +1,6 @@
+Reading graph from exercise.txt...OK
+Searching for a single clique with weight at least 5...
+  2/7 (max  1)  0.00 s  (0.00 s/round)
+  3/7 (max  2)  0.00 s  (0.00 s/round)
+  5/7 (max  3)  0.00 s  (0.00 s/round)
+No such clique found.

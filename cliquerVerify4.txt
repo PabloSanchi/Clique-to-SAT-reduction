@@ -1,0 +1,7 @@
+Reading graph from exercise.txt...OK
+Searching for a single clique with weight at least 4...
+  2/7 (max  1)  0.00 s  (0.00 s/round)
+  3/7 (max  2)  0.00 s  (0.00 s/round)
+  5/7 (max  3)  0.00 s  (0.00 s/round)
+  7/7 (max  4)  0.00 s  (0.00 s/round)
+size=4, weight=4:   4 5 6 7
