@@ -30,23 +30,22 @@ void translate(vector<vector<int>>& g, string dir) {
 vector< vector<int> > fileToGraph(string filename) {
     
     ifstream file(filename);
-    int nodes = 0, lineNum = 1;
+    int nodes = 0;
     string line;
 
-    
-    getline(file, line); // first line;
-    getline(file, line); // second line;
-    getline(file, line); // third line;
-    
-    
-    char *token = std::strtok(const_cast<char*>(line.c_str()), " ");
-    token = std::strtok(nullptr, " ");
-    token = std::strtok(nullptr, " ");
-    nodes = stoi(token);
+    while(getline(file, line)) {
+        if(line[0] != 'p') continue;
+        char *token = std::strtok(const_cast<char*>(line.c_str()), " ");
+        token = std::strtok(nullptr, " ");
+        token = std::strtok(nullptr, " ");
+        nodes = stoi(token);
+        break;
+    }
 
     vector< vector<int> > graph(nodes, vector<int>(nodes));
     
-    while(getline(file, line)) { // third to last line
+    while(getline(file, line)) {
+        if(line[0] != 'e') continue;
         char *token = std::strtok(const_cast<char*>(line.c_str()), " "); // e;
         token = std::strtok(nullptr, " "); // node 1
         int a = stoi(token)-1;
@@ -54,12 +53,9 @@ vector< vector<int> > fileToGraph(string filename) {
         int b = stoi(token)-1;
         
         graph[a][b] = 1; graph[b][a] = 1;
-        
-        lineNum++;
     }
 
     return graph;
 }
-
 
 #endif

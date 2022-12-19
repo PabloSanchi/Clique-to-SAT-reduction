@@ -16,8 +16,7 @@ using namespace std;
 
 /**
  * @brief Create a subgraph from an already existing graph
- *        it will "ignore" all vertex that are not in the allowedVertex graph
- *        by setting those connections to 0
+ *        it will take only the first n nodes
  * 
  * @param g 
  * @param allowedVertex 
@@ -38,6 +37,14 @@ vector<vector<int>> createGraph(vector<vector<int>> g, vector<int> allowedVertex
     return v;
 }
 
+/**
+ * @brief Create a subgraph from an already existing graph
+ *        it will take the nodes in the variable allowedVertex
+ * 
+ * @param g 
+ * @param allowedVertex 
+ * @return vector<vector<int>> 
+ */
 vector<vector<int>> createGraph(vector<vector<int>> g, vector<int> allowedVertex) {
     vector<vector<int>> v(g.size(), vector<int>(g.size(), 0));
     for(auto v1 : allowedVertex) {
@@ -51,8 +58,16 @@ vector<vector<int>> createGraph(vector<vector<int>> g, vector<int> allowedVertex
     return v;
 }
 
+/**
+ * @brief find and print (if exists) the n-clique in the given graph (g)
+ * 
+ * @param g 
+ * @param n 
+ * @param dir 
+ * @return true 
+ * @return false 
+ */
 bool search(const vector<vector<int>>& g, size_t n, string dir = "searchGraph.txt") {
-    
 
     size_t res = 0;
     vector<int> allowedVertex(g.size());
@@ -83,9 +98,17 @@ bool search(const vector<vector<int>>& g, size_t n, string dir = "searchGraph.tx
     return false;
 }
 
-bool search2(const vector<vector<int>>& g, size_t n, string dir = "searchGraph.txt") {
-    
-    // pruyeba un nodo, quitalo, es k-clique? si no lo es se deja, si lo es se quita
+/**
+ * @brief find and print (if exists) the n-clique in the given graph (g)
+ * 
+ * @param g 
+ * @param n 
+ * @param dir 
+ * @return true 
+ * @return false 
+ */
+bool search2(const vector<vector<int>>& g, size_t n, string dir = "searchGraph.txt") {    
+    // try one node then get result from picosat, if it is still a k-clique then remove the node, if not, keep it
     size_t res;
     vector<int> allowedVertex(g.size());
     std::iota(allowedVertex.begin(), allowedVertex.end(), 0); // range of numbers from 0 to g.size() - 1
@@ -118,22 +141,13 @@ bool search2(const vector<vector<int>>& g, size_t n, string dir = "searchGraph.t
 
     return true;
 }
-// first loop: delete all nodes that have less edges than n-1
-// to be a clique of size 4, every node will have a degree of 3
 
-
-// now, for every node check if their neightbours are connected
-// 0 -----  1  ------ 3
-//           \         /\ ---- 8 ---- 9
-//            \       /        |
-//             \ /----         |
-//              4----------------
-// as you can see 4 has trhee edges, but 1 and 8 are not connected
-// in this case, 4 cannot be part of a clique
-
-// check again the degree of the nodes
-
-
+/**
+ * @brief find the highest clique in the vertex
+ * 
+ * @param g 
+ * @return size_t 
+ */
 size_t optimisation(const vector<vector<int>>& g) {
     size_t min = 2, max = g.size(), p, res;
     
@@ -150,7 +164,7 @@ size_t optimisation(const vector<vector<int>>& g) {
             max = p-1; // set upper bound
     }
     
-    // this line is to get the graph in the optGraph.txt file
+    // this line is to find and print the graph in the optGraph.txt file
     bool not_used = search(g, min, "optGraph.txt");
 
     return min;
