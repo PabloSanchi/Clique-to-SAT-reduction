@@ -34,13 +34,13 @@ void graphTOCNF(vector< vector<int> > g, size_t k) {
 	size_t numOfClauses = 0;
     string text = "";
 	
+	numOfClauses = k;
 	// P1) Each vertex in a clique must be a vertex in the graph
 	for(size_t r = 0; r < k; r++){
 		for(size_t i = 0; i < g.size(); i++){
 			text += to_string(num[i][r]) + " ";
 		}
 		text += "0\n";
-		++numOfClauses;
 	}
 
     // P2) A vertex cannot appear twice in the same clique
